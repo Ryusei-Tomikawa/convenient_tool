@@ -1,18 +1,18 @@
 @echo off
 setlocal EnableDelayedExpansion
 
-rem ��ʔ�����\���Z�b�g�A�b�v��.bat
+rem 交通費自動化申請セットアップの.bat
 
 echo +-------------------------------------------------------+
 echo;
-echo ��ʔ�����\���Z�b�g�A�b�v���J�n���܂��B
+echo 交通費自動化申請セットアップを開始します。
 echo;
 echo +-------------------------------------------------------+
 
 :setup_loop
 
-echo python�̃C���X�g�[�����J�n���܂��B��낵���ł����H�iy/n�j
-echo �����łɃC���X�g�[���ς̏ꍇ�́A"h"����͂��Ă��������B
+echo pythonのインストールを開始します。よろしいですか？（y/n）
+echo ※すでにインストール済の場合は、"h"を入力してください。
 
 set start=
 set /p start= 
@@ -20,27 +20,27 @@ set /p start=
 if %start% == y (
   rem echo %start%
   echo;
-  echo python�̃C���X�g�[�����J�n���܂��B
+  echo pythonのインストールを開始します。
   echo; 
   call python-3.10.6-amd64
 
 ) else if %start% == n (
   echo;
-  echo ��ʔ�����\���Z�b�g�A�b�v�𒆎~���܂��B
+  echo 交通費自動化申請セットアップを中止します。
   pause
   exit
 
 ) else if %start% == h (
   echo;
-  echo �C���X�g�[���ςȂ̂ŃX�L�b�v���܂��B
+  echo インストール済なのでスキップします。
   echo;
 
 ) else (
-  echo y or n or h����͂��Ă��������B
+  echo y or n or hを入力してください。
   goto setup_loop
 ) 
 
-rem ���ݐڑ����Ă���Wi-Fi�̏����e�L�X�g�t�@�C���ɏ�������
+rem 現在接続しているWi-Fiの情報をテキストファイルに書き込む
 type nul > wifi.txt
 netsh wlan show interface >> wifi.txt
 
@@ -55,18 +55,20 @@ set current_SSID=%ssid:~29%
 
 timeout 2 /nobreak >nul
 
-if %current_SSID% == Yaskawa_Wlan (
+// ***** => 取得したSSID
+
+if %current_SSID% == ****** (
   echo;
-  echo Yaskawa_Wlan�ɐڑ����Ă��邽�߁A�ʂ�Wi-Fi�i����e�U�����O�Ȃǁj�ɐڑ����Ă��������B
-  echo ��Yaskawa_Wlan��Yaskawa_Mobile�ɐڑ����Ă���ꍇ�A���̃X�e�b�v�Ŏ��s���܂��B
-�@echo; 
+  echo ****** に接続しているため、別のWi-Fiに接続してください。
+  echo ※*******に接続している場合、次のステップで失敗します。
+　echo; 
   pause
   exit
 ) else (
   echo;
-  echo ���� %current_SSID% �ɐڑ����Ă��܂��B
-  rem �K�v�ȃ��C�u����
-  echo ��ʔ�����\���ɕK�v�ȃ��C�u�������C���X�g�[�����܂��B
+  echo 現在 %current_SSID% に接続しています。
+  rem 必要なライブラリ
+  echo 交通費自動化申請に必要なライブラリをインストールします。
   timeout 2 /nobreak >nul
   py -m pip install pyautogui pywin32 Pillow opencv-python psutil jpholiday
   echo; 
@@ -76,12 +78,12 @@ if %current_SSID% == Yaskawa_Wlan (
 
 echo +-------------------------------------------------------------------------+
 echo;
-echo �ȉ��̃��C�u�������C���X�g�[�����ꂽ���m�F���Ă��������B
+echo 以下のライブラリがインストールされたか確認してください。
 echo pyautogui pywin32 Pillow opencv-python psutil jpholiday
 echo;
-echo �����C���X�g�[������Ă����ꍇ�A��ʔ�����\���Z�b�g�A�b�v�͏I���ł��B
-echo �����l�ł����B
-echo ��������肭�����Ȃ������ꍇ�y��܂�
+echo 無事インストールされていた場合、交通費自動化申請セットアップは終了です。
+echo お疲れ様でした。
+echo ※もし上手くいかなかった場合冨川まで
 echo;
 echo +------------------------------------------------------------------------+
 
