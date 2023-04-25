@@ -1,13 +1,13 @@
 @echo off
 setlocal EnableDelayedExpansion
 
-rem Œ»ÝÚ‘±‚µ‚Ä‚¢‚éWi-Fi‚ÌSSIDŽæ“¾‚·‚é.bat
+rem ç¾åœ¨æŽ¥ç¶šã—ã¦ã„ã‚‹Wi-Fiã®SSIDå–å¾—ã™ã‚‹.bat
 
-rem Œ»ÝÚ‘±‚µ‚Ä‚¢‚éWi-Fi‚Ìî•ñ‚ðƒeƒLƒXƒgƒtƒ@ƒCƒ‹‚É‘‚«ž‚Þ
+rem ç¾åœ¨æŽ¥ç¶šã—ã¦ã„ã‚‹Wi-Fiã®æƒ…å ±ã‚’ãƒ†ã‚­ã‚¹ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€
 type nul > wifi.txt
 netsh wlan show interface >> wifi.txt
 
-rem SSID‚Ì•”•ª‚¾‚¯“Ç‚Ýž‚Þ
+rem SSIDã®éƒ¨åˆ†ã ã‘èª­ã¿è¾¼ã‚€
 set count=0
 for /f "skip=8 delims=" %%i in (wifi.txt) do (
     set ssid=%%i
@@ -17,13 +17,15 @@ for /f "skip=8 delims=" %%i in (wifi.txt) do (
 
 set current_SSID=%ssid:~29%
 
-if %current_SSID% == Yaskawa_Wlan (
+// ***** => å–å¾—ã—ãŸSSIDå
+// ************************ => ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+if %current_SSID% == ***** (
   echo;
-  echo Yaskawa_Wlan‚ÉÚ‘±‚µ‚Ä‚¢‚é‚½‚ßA•Ê‚ÌWi-Fii—¾‚âƒeƒUƒŠƒ“ƒO‚È‚Çj‚ÉÚ‘±‚µ‚Ä‚­‚¾‚³‚¢B
+  echo *****************************************ã€‚
   echo; 
 ) else (
   echo;
-  echo Œ»Ý %current_SSID% ‚ÉÚ‘±‚µ‚Ä‚¢‚Ü‚·B
+  echo ç¾åœ¨ %current_SSID% ã«æŽ¥ç¶šã—ã¦ã„ã¾ã™ã€‚
   echo;
 ) 
 
